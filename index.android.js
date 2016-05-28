@@ -19,14 +19,11 @@ var MOCKED_MOVIES_DATA = [
 class NativeReact extends Component {
 	render() {
 		return (
-			var movie = MOCKED_MOVIES_DATA[0];
-			return (
-				<View style={styles.container}>
-					<Text>{movie.title}</Text>
-					<Text>{movie.year}</Text>
-					<Image source={{uri: movie.posters.thumbnail}} />
-				</View>
-			);
+			<View style={styles.container}>
+				<Text>{movie.title}</Text>
+				<Text>{movie.year}</Text>
+				<Image source={{uri: movie.posters.thumbnail}} />
+			</View>
 		);
 	}
 }
