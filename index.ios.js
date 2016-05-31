@@ -4,6 +4,43 @@
  * @flow
  */
 
+
+ var React = require('react');
+ var ReactNative = require('react-native');
+ var {
+	 AppRegistry,
+	 NavigatorIOS,
+	 StyleSheet,
+ } = ReactNative;
+
+var SearchScreen = require('./SearchScreen');
+
+const MoviesApp extends React.Component {
+		render() {
+			return (
+				<NavigatorIOS
+					style={styles.container}
+					initialRoute={{
+						title: 'Movies',
+						component: SearchScreen,
+					}}
+				/>
+			);
+		}
+};
+
+var styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: 'white',
+	},
+});
+
+AppRegistry.registerComponent('MoviesApp', () => MoviesApp);
+
+module.exports = MoviesApp;
+
+/*
 import React, { Component } from 'react';
 import {
 	AppRegistry,
@@ -63,12 +100,12 @@ class NativeReact extends Component {
 					source={{uri: movie.posters.thumbnail}}
 					style={styles.thumbnail}
 				/>
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>{movie.title}</Text>
-          <Text style={styles.year}>{movie.year}</Text>
-        </View>
-      </View>
-    );
+		<View style={styles.rightContainer}>
+		  <Text style={styles.title}>{movie.title}</Text>
+		  <Text style={styles.year}>{movie.year}</Text>
+		</View>
+	  </View>
+	);
   }
 
 	renderLoadingView() {
@@ -127,3 +164,4 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('NativeReact', () => NativeReact);
+*/
