@@ -5,17 +5,16 @@
  */
 
 
- var React = require('react');
- var ReactNative = require('react-native');
- var {
-	 AppRegistry,
-	 NavigatorIOS,
-	 StyleSheet,
- } = ReactNative;
+ import React, { Component } from 'react';
+ import {
+ 	AppRegistry,
+ 	NavigatorIOS,
+ 	StyleSheet
+ } from 'react-native';
 
 var SearchScreen = require('./SearchScreen');
 
-const MoviesApp extends React.Component {
+class MoviesApp extends Component {
 		render() {
 			return (
 				<NavigatorIOS
@@ -38,7 +37,7 @@ var styles = StyleSheet.create({
 
 AppRegistry.registerComponent('MoviesApp', () => MoviesApp);
 
-module.exports = MoviesApp;
+
 
 /*
 import React, { Component } from 'react';
