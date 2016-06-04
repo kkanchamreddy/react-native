@@ -15,17 +15,22 @@
 var SearchScreen = require('./SearchScreen');
 
 class MoviesApp extends Component {
-		render() {
-			return (
-				<NavigatorIOS
-					style={styles.container}
-					initialRoute={{
-						title: 'Movies',
-						component: SearchScreen,
-					}}
-				/>
-			);
-		}
+	
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<NavigatorIOS
+				style={styles.container}
+				initialRoute={{
+					title: 'Movies',
+					component: SearchScreen,
+				}}
+			/>
+		);
+	}
 };
 
 var styles = StyleSheet.create({
