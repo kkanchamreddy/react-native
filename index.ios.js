@@ -14,8 +14,8 @@
 
 var SearchScreen = require('./SearchScreen');
 
-class MoviesApp extends Component {
-	
+class NativeReact extends Component {
+
 	constructor(props) {
 		super(props);
 	}
@@ -40,7 +40,9 @@ var styles = StyleSheet.create({
 	},
 });
 
-AppRegistry.registerComponent('MoviesApp', () => MoviesApp);
+AppRegistry.registerComponent('NativeReact', () => NativeReact);
+
+
 
 
 
