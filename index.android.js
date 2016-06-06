@@ -1,61 +1,86 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
+ * @flow
  */
 
-import React, { Component } from 'react';
-import {
+
+ 'use strict';
+
+var React = require('react');
+var ReactNative = require('react-native');
+var {
   AppRegistry,
-  Image,
+  BackAndroid,
+  Navigator,
   StyleSheet,
-  Text,
-  View
-} from 'react-native';
+  ToolbarAndroid,
+  View,
+} = ReactNative;
 
-var MOCKED_MOVIES_DATA = [
-  {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
-];
+var MovieScreen = require('./MovieScreen');
+var SearchScreen = require('./SearchScreen');
 
-class NativeReact extends Component {
-	render() {
-		return (
-			<View style={styles.container}>
-				<Image
-					source={{uri: movie.posters.thumbnail}}
-					style={styles.thumbnail}
-				/>
-				<View style={styles.rightContainer}>
-					<Text style={styles.title}>{movie.title}</Text>
-					<Text style={styles.year}>{movie.year}</Text>
-				</View>
-			</View>
-		);
-	}
-}
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#F5FCFF'
-	},
-	rightContainer: {
-		flex: 1
-  	},
-	thumbnail: {
-		width: 53,
-		height: 81
-	},
-	title: {
-		fontSize: 20,
-		marginBottom: 8,
-		textAlign: 'center'
-	},
-	year: {
-	  textAlign: 'center'
-	}
+var _navigator;
+BackAndroid.addEventListener('hardwareBackPress', () => {
+  if (_navigator && _navigator.getCurrentRoutes().length > 1) {
+	_navigator.pop();
+	return true;
+  }
+  return false;
 });
 
-AppRegistry.registerComponent('NativeReact', () => NativeReact);
+var RouteMapper = function(route, navigationOperations, onComponentRef) {
+  _navigator = navigationOperations;
+  if (route.name === 'search') {
+	return (
+	  <SearchScreen navigator={navigationOperations} />
+	);
+  } else if (route.name === 'movie') {
+	return (
+	  <View style={{flex: 1}}>
+		<ToolbarAndroid
+		  actions={[]}
+		  navIcon={require('image!android_back_white')}
+		  onIconClicked={navigationOperations.pop}
+		  style={styles.toolbar}
+		  titleColor="white"
+		  title={route.movie.title} />
+		<MovieScreen
+		  style={{flex: 1}}
+		  navigator={navigationOperations}
+		  movie={route.movie}
+		/>
+	  </View>
+	);
+  }
+};
+
+var MoviesApp = React.createClass({
+  render: function() {
+	var initialRoute = {name: 'search'};
+	return (
+	  <Navigator
+		style={styles.container}
+		initialRoute={initialRoute}
+		configureScene={() => Navigator.SceneConfigs.FadeAndroid}
+		renderScene={RouteMapper}
+	  />
+	);
+  }
+});
+
+var styles = StyleSheet.create({
+  container: {
+	flex: 1,
+	backgroundColor: 'white',
+  },
+  toolbar: {
+	backgroundColor: '#a9a9a9',
+	height: 56,
+  },
+});
+
+AppRegistry.registerComponent('MoviesApp', () => MoviesApp);
+
+module.exports = MoviesApp;
